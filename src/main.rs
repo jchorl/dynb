@@ -1,4 +1,5 @@
 use env_logger::Env;
+use std::env;
 use warp::Filter;
 
 #[tokio::main]
@@ -7,7 +8,10 @@ async fn main() {
 
     let api = filters::ip();
     let routes = api.with(warp::log("ip"));
-    let port = 3030;
+    let port = match env::var("PORT") {
+        Ok(val) => val.parse::<u16>().unwrap(),
+        Err(_) => 8080,
+    };
     warp::serve(routes).run(([127, 0, 0, 1], port)).await;
 }
 
