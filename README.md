@@ -16,6 +16,7 @@ It is used to run your own dynmamic DNS.
     ```bash
     [Service]
     Environment="PORT=8080"
+    Environment="AUTHENTICATION_TOKEN=<token>"
     ```
 1. `sudo systemctl enable dynb`
 1. `sudo systemctl start dynb`

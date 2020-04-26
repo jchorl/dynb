@@ -5,7 +5,19 @@ use warp::http::StatusCode;
 
 use crate::errors::*;
 
-pub async fn update_ip(addr: String) -> std::result::Result<impl warp::Reply, Infallible> {
+pub async fn update_ip(
+    auth_hdr: String,
+    addr: String,
+) -> std::result::Result<impl warp::Reply, Infallible> {
+    let auth_token_res = std::env::var("AUTHENTICATION_TOKEN");
+    if let Err(_) = auth_token_res {
+        return Ok(StatusCode::UNAUTHORIZED);
+    }
+
+    if auth_token_res.unwrap() != auth_hdr {
+        return Ok(StatusCode::UNAUTHORIZED);
+    }
+
     match call_nsupdate(addr) {
         Err(e) => {
             use error_chain::ChainedError;

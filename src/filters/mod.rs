@@ -9,6 +9,7 @@ pub fn ip() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> 
 fn ip_update() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path!("update")
         .and(warp::put())
+        .and(warp::header("Authentication"))
         .and(warp::header("X-Forwarded-For"))
         .and_then(handlers::update_ip)
 }
