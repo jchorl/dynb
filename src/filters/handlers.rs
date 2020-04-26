@@ -9,12 +9,12 @@ pub async fn update_ip(
     auth_hdr: String,
     addr: String,
 ) -> std::result::Result<impl warp::Reply, Infallible> {
-    let auth_token_res = std::env::var("AUTHENTICATION_TOKEN");
+    let auth_token_res = std::env::var("AUTHORIZATION_TOKEN");
     if let Err(_) = auth_token_res {
         return Ok(StatusCode::UNAUTHORIZED);
     }
 
-    if auth_token_res.unwrap() != auth_hdr {
+    if format!("Bearer {}", auth_token_res.unwrap()) != auth_hdr {
         return Ok(StatusCode::UNAUTHORIZED);
     }
 
