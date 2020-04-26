@@ -1,0 +1,14 @@
+[Unit]
+Description=dynb
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/home/j/dynb
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,5 @@
 [package]
-name = "felipe"
+name = "dynb"
 version = "0.1.0"
 authors = ["Josh Chorlton <jchorlton@gmail.com>"]
 edition = "2018"
@@ -8,6 +8,7 @@ edition = "2018"
 
 [dependencies]
 env_logger = "0.7"
+error-chain = "0.12.2"
 log = "0.4"
 warp = "0.2.0"
 tokio = { version = "0.2", features = ["macros"] }
