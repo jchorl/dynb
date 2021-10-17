@@ -34,9 +34,12 @@ fn call_nsupdate(addr: String) -> Result<()> {
         "
 update delete *.choo.dev A
 update add *.choo.dev 86400 A {}
+
+update delete *.carta.horse A
+update add *.carta.horse 86400 A {}
 send
 ",
-        addr
+        addr, addr
     );
 
     fs::write("/tmp/nsupdate_cmd", update_cmds).chain_err(|| "writing nsupdate cmd")?;
